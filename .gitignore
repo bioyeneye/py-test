@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+*.manifest
+*.spec
+
+# Virtual environment
+venv/
+.env/
+
+# SQLite database
+*.db
+
+# VSCode / PyCharm
+.vscode/
+.idea/
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# Docker
+*.pid

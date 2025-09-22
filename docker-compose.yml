@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  todo-api:
+    build: .
+    container_name: todo_api_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src   # hot-reload code changes into container
+    environment:
+      - PYTHONPATH=/app/src
+      - DATABASE_URL=sqlite:///./todos.db
