@@ -13,4 +13,13 @@ app = FastAPI(
     redoc_url="/redoc",     # ReDoc UI
     openapi_url="/openapi.json"  # OpenAPI schema
 )
+
+@app.get("/")
+def read_root():
+    return {"message": "Todo API", "version": "1.0.0"}
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
 app.include_router(todo_router)
