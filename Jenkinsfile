@@ -99,22 +99,25 @@ pipeline {
         stage('🏷️ Git Tag') {
             steps {
                 script {
+                    // 1. Groovy Logic: Prepare the URL before entering the shell
+                    // Assuming scmVars was captured in the Checkout stage
+                    def cleanUrl = scmVars.GIT_URL.replace("https://", "")
+
                     withCredentials([usernamePassword(credentialsId: 'github-app', 
                                                     usernameVariable: 'GIT_USER', 
                                                     passwordVariable: 'GIT_TOKEN')]) {
                         sh """
-                            # 1. Setup identity
+                            # 2. Setup identity
                             git config user.email "jenkins@buildplatform.net"
                             git config user.name "Jenkins CI"
 
-                            # 2. Create the tag locally
+                            # 3. Create the tag locally
+                            # Using Jenkins variables ${TAG} and ${GIT_COMMIT_SHORT}
                             git tag -a "prod-v${TAG}" -m "Release commit ${GIT_COMMIT_SHORT}"
 
-                            # 3. Handle the remote URL. 
-                            repoUrl = scmVars.GIT_URL.replace("https://", "")
-
-                            # 4. Push using the token for authentication
-                            git push https://${GIT_USER}:${GIT_TOKEN}@\${repoUrl} "prod-v${TAG}"
+                            # 4. Push using the token and the pre-cleaned URL
+                            # We use the Groovy variable ${cleanUrl} here
+                            git push https://${GIT_USER}:${GIT_TOKEN}@${cleanUrl} "prod-v${TAG}"
                         """
                     }
                 }
