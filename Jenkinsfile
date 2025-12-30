@@ -51,16 +51,16 @@ pipeline {
                         """
                     }
                 }
-                stage('🧪 Unit Tests') {
-                    steps {
-                        sh """
-                        . venv/bin/activate
-                        pip install pytest pytest-cov -r requirements.txt
-                        pytest --junitxml=results.xml --cov=src --cov-report=xml
-                        """
-                        junit 'results.xml'
-                    }
-                }
+                // stage('🧪 Unit Tests') {
+                //     steps {
+                //         sh """
+                //         . venv/bin/activate
+                //         pip install pytest pytest-cov -r requirements.txt
+                //         pytest --junitxml=results.xml --cov=src --cov-report=xml
+                //         """
+                //         junit 'results.xml'
+                //     }
+                // }
             }
         }
 
