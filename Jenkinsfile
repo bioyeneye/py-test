@@ -6,7 +6,7 @@ pipeline {
         PROJECT  = "library"
         IMAGE    = "todo-api"
         TAG      = "${env.BUILD_NUMBER}"
-        PYTHON_VERSION = "3.11"
+        PYTHON_VERSION = "3"
     }
 
     stages {
@@ -105,7 +105,7 @@ pipeline {
 
                             # 2. Create the tag locally
                             git tag -a "prod-v${TAG}" -m "Release commit ${GIT_COMMIT_SHORT}"
-    
+
                             # 3. Handle the remote URL. 
                             repoUrl = scmVars.GIT_URL.replace("https://", "")
 
