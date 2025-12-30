@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from src.todo_api.infrastructure.database import Base, engine
-from src.todo_api.infrastructure import models
 from src.todo_api.interfaces.todo_controller import router as todo_router
 
 Base.metadata.create_all(bind=engine)
