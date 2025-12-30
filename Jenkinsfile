@@ -87,6 +87,7 @@ pipeline {
                             sh """
                                 echo "${HARBOR_PASS}" | docker login ${REGISTRY} -u "${HARBOR_USER}" --password-stdin
                                 docker push ${REGISTRY}/${PROJECT}/${IMAGE}:${GIT_COMMIT_SHORT}-${TAG}
+                                docker tag ${REGISTRY}/${PROJECT}/${IMAGE}:${GIT_COMMIT_SHORT}-${TAG} ${REGISTRY}/${PROJECT}/${IMAGE}:latest
                                 docker push ${REGISTRY}/${PROJECT}/${IMAGE}:latest
                                 docker logout ${REGISTRY}
                             """
