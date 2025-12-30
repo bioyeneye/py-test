@@ -79,9 +79,6 @@ pipeline {
         }
 
         stage('📦 Push to Harbor') {
-            when { 
-                branch pattern: "**/main", comparator: "ANT" 
-            }
             steps {
                 script {
                     docker.withRegistry("https://${REGISTRY}", 'harbor-credentials') {
@@ -94,9 +91,6 @@ pipeline {
         }
         
         stage('🏷️ Git Tag') {
-            when { 
-                branch pattern: "**/main", comparator: "ANT" 
-            }
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-app', 
