@@ -81,8 +81,7 @@ pipeline {
         stage('📦 Push to Harbor') {
             steps {
                 script {
-                    steps {
-                        withCredentials([usernamePassword(credentialsId: 'harbor-credentials', 
+                    withCredentials([usernamePassword(credentialsId: 'harbor-credentials', 
                                                         usernameVariable: 'HARBOR_USER', 
                                                         passwordVariable: 'HARBOR_PASS')]) {
                             sh """
@@ -91,7 +90,6 @@ pipeline {
                                 docker push ${REGISTRY}/${PROJECT}/${IMAGE}:latest
                                 docker logout ${REGISTRY}
                             """
-                        }
                     }
                 }
             }
