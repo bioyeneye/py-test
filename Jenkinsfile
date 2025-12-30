@@ -99,10 +99,6 @@ pipeline {
         stage('🏷️ Git Tag') {
             steps {
                 script {
-                    // 1. Groovy Logic: Prepare the URL before entering the shell
-                    // Assuming scmVars was captured in the Checkout stage
-                    def cleanUrl = scmVars.GIT_URL.replace("https://", "")
-
                     withCredentials([usernamePassword(credentialsId: 'github-app', 
                                                     usernameVariable: 'GIT_USER', 
                                                     passwordVariable: 'GIT_TOKEN')]) {
