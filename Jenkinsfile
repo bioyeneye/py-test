@@ -81,10 +81,17 @@ pipeline {
         stage('📦 Push to Harbor') {
             steps {
                 script {
-                    docker.withRegistry("https://${REGISTRY}", 'harbor-credentials') {
-                        def img = docker.image("${REGISTRY}/${PROJECT}/${IMAGE}:${GIT_COMMIT_SHORT}-${TAG}")
-                        img.push()
-                        img.push("latest")
+                    steps {
+                        withCredentials([usernamePassword(credentialsId: 'harbor-credentials', 
+                                                        usernameVariable: 'HARBOR_USER', 
+                                                        passwordVariable: 'HARBOR_PASS')]) {
+                            sh """
+                                echo "${HARBOR_PASS}" | docker login ${REGISTRY} -u "${HARBOR_USER}" --password-stdin
+                                docker push ${REGISTRY}/${PROJECT}/${IMAGE}:${GIT_COMMIT_SHORT}-${TAG}
+                                docker push ${REGISTRY}/${PROJECT}/${IMAGE}:latest
+                                docker logout ${REGISTRY}
+                            """
+                        }
                     }
                 }
             }
