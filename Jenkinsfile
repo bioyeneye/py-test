@@ -112,8 +112,8 @@ pipeline {
                             git tag -a "prod-v${TAG}" -m "Release commit ${GIT_COMMIT_SHORT}"
 
                             # 4. Push using the token and the pre-cleaned URL
-                            # We use the Groovy variable ${GIT_COMMIT_SHORT} here
-                            git push https://${GIT_USER}:${GIT_TOKEN}@${GIT_COMMIT_SHORT} "prod-v${TAG}"
+                            # We use the Groovy variable ${GIT_REMOTE_URL} here
+                            git push https://${GIT_USER}:${GIT_TOKEN}@${GIT_REMOTE_URL} "prod-v${TAG}"
                         """
                     }
                 }
